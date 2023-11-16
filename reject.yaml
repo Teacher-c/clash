@@ -1,1 +1,21 @@
-m嗷嗷
+#日产智联广告
+HOST,cdnvitfile.venucia.com,REJECT
+HOST-suffix,vectormap0.bdimg.com,REJECT
+HOST,errlog.umeng.com,REJECT
+#屏蔽ios更新
+HOST,gdmf.apple.com,REJECT
+HOST,mesu.apple.com,REJECT
+#绕过企业证书过期
+HOST,ocsp.apple.com,REJECT
+#屏蔽Macos更新
+HOST,swscan.apple.com,REJECT
+HOST,swcdn.apple.com,REJECT
+HOST,swdist.apple.com,REJECT
+#避免迅雷版权问题
+HOST,hub5idx.v6.shub.sandai.net,REJECT
+HOST,hub5emu.v6.shub.sandai.net,REJECT
+HOST,hub5btmain.v6.shub.sandai.net,REJECT
+#屏蔽Google Chrome更新
+HOST,tools.google.com,REJECT
+#屏蔽Xmind更新
+HOST,dl2.xmind.com,REJECT
