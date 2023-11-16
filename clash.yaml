@@ -33,6 +33,9 @@ external-controller: '0.0.0.0:9090'
 # RESTful API 的口令 (可选)
 secret: ""
 
+# [Meta Feature]
+tcp-concurrent: true
+
 # DNS 设置
 dns:
  enable: true
@@ -89,7 +92,7 @@ proxy-providers:
     type: http
     path: ./Server/几鸡.yaml 
     url: http://a01.pokabu.tokyo/link/FJaQloK6HHuOxrO6?clash=2
-    filter: (3倍)
+    filter: ([4倍]TW)
     interval: 86400
     health-check:
         enable: true
@@ -147,18 +150,12 @@ rules:
 #######第一条规则加密80端口防止共享检测
   - DST-PORT,80,PROXY
   - RULE-SET,Advertising,REJECT
-  - RULE-SET,anti-AD,REJECT
-  - RULE-SET,AdGuardSDNSFilter,REJECT
   - RULE-SET,BlockHttpDNS,REJECT
-  - RULE-SET,ExtraReject,REJECT
+#  - RULE-SET,ExtraReject,REJECT
   - RULE-SET,Apple,DIRECT
   - RULE-SET,Microsoft,DIRECT
   - RULE-SET,ChinaMax,DIRECT
   - RULE-SET,Lan,DIRECT
-  - RULE-SET,ExtraDirect,DIRECT
-  - RULE-SET,Global,PROXY
-  - RULE-SET,GlobalMedia,PROXY
-  - RULE-SET,ExtraProxy,PROXY
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT,no-resolve
   - MATCH,PROXY
@@ -166,18 +163,19 @@ rules:
 
 rule-providers:
 
-  GlobalMedia:
+
+  Advertising:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml"
-    path: ./ruleset/GlobalMedia_Classical.yaml
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Advertising/Advertising_Classical.yaml"
+    path: ./ruleset/Advertising_Classical.yaml
     interval: 604800
 
-  Global:
+  BlockHttpDNS:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Global/Global_Classical.yaml"
-    path: ./ruleset/Global_Classical.yaml
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/BlockHttpDNS/BlockHttpDNS.yaml"
+    path: ./ruleset/BlockHttpDNS.yaml
     interval: 604800
 
   Apple:
@@ -194,7 +192,6 @@ rule-providers:
     path: ./ruleset/Microsoft.yaml
     interval: 604800
 
-
   ChinaMax:
     type: http
     behavior: classical
@@ -208,35 +205,3 @@ rule-providers:
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Lan/Lan.yaml"
     path: ./ruleset/Lan.yaml
     interval: 604800
-
-  Advertising:
-    type: http
-    behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Advertising/Advertising_Classical.yaml"
-    path: ./ruleset/Advertising_Classical.yaml
-    interval: 604800
-
-  anti-AD:
-    type: http
-    behavior: domain
-    url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-clash.yaml"
-    path: ./ruleset/anti-ad-clash.yaml
-    interval: 604800
-
-  AdGuardSDNSFilter:
-    type: http
-    behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/AdGuardSDNSFilter/AdGuardSDNSFilter_Classical.yaml"
-    path: ./ruleset/AdGuardSDNSFilter_Classical.yaml
-    interval: 604800
-
-  BlockHttpDNS:
-    type: http
-    behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/BlockHttpDNS/BlockHttpDNS.yaml"
-    path: ./ruleset/BlockHttpDNS.yaml
-    interval: 604800
-    
-  
-
-
