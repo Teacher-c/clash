@@ -88,9 +88,9 @@ dns:
 
 # 代理节点
 proxy-providers:
-  几鸡:
+  jiji:
     type: http
-    path: ./Server/几鸡.yaml 
+    path: ./proxy-providers/jiji.yaml 
     url: http://a01.pokabu.tokyo/link/FJaQloK6HHuOxrO6?clash=2
     filter: (TW)
     interval: 86400
@@ -108,7 +108,7 @@ proxy-groups:
     interval: 1800
     strategy: consistent-hashing
     use:
-      - 几鸡
+      - jiji
 
 # url-test
 #  -
@@ -118,7 +118,7 @@ proxy-groups:
 #    interval: 1800
 #    tolerance: 10
 #    use:
-#      - 几鸡
+#      - jiji
 
 #select 手动选择，该组在节点列表上，手动选择列表或者 proxy-group
 #url-test 延迟最低节点，测试该组所有节点的延迟
