@@ -156,7 +156,7 @@ rules:
   - RULE-SET,ChinaMax,DIRECT
   - RULE-SET,Lan,DIRECT
   - GEOIP,LAN,DIRECT
-  - GEOIP,CN,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT
   - MATCH,PROXY
 
 
