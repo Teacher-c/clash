@@ -150,7 +150,7 @@ rules:
   - DST-PORT,80,PROXY
   - RULE-SET,Advertising,REJECT
   - RULE-SET,BlockHttpDNS,REJECT
-  - RULE-SET,ExtraReject,REJECT
+#- RULE-SET,ExtraReject,REJECT
   - RULE-SET,Apple,DIRECT
   - RULE-SET,Microsoft,DIRECT
   - RULE-SET,ChinaMax,DIRECT
