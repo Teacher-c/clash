@@ -166,42 +166,42 @@ rule-providers:
   Advertising:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Advertising/Advertising_Classical.yaml"
+    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Advertising/Advertising_Classical.yaml"
     path: ./ruleset/Advertising_Classical.yaml
     interval: 604800
 
   BlockHttpDNS:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/BlockHttpDNS/BlockHttpDNS.yaml"
+    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/BlockHttpDNS/BlockHttpDNS.yaml"
     path: ./ruleset/BlockHttpDNS.yaml
     interval: 604800
 
   Apple:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Apple/Apple.yaml"
+    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Apple/Apple.yaml"
     path: ./ruleset/Apple.yaml
     interval: 604800
 
   Microsoft:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Microsoft/Microsoft.yaml"
+    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Microsoft/Microsoft.yaml"
     path: ./ruleset/Microsoft.yaml
     interval: 604800
 
   ChinaMax:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/ChinaMax/ChinaMax_Classical.yaml"
+    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/ChinaMax/ChinaMax_Classical.yaml"
     path: ./ruleset/ChinaMax_Classical.yaml
     interval: 604800
 
   Lan:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Lan/Lan.yaml"
+    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Lan/Lan.yaml"
     path: ./ruleset/Lan.yaml
     interval: 604800
 
