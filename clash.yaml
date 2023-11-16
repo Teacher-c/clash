@@ -1,213 +1,332 @@
-## ！！！只有这份文件的端口设置会随ClashX启动生效
-#---------------------------------------------------#
-
-# HTTP 代理端口
+#--------------------------------------------------------------------------------------#
+# Written by SunBK201
+# https://github.com/SunBK201/MyProfiles
+#--------------------------------------------------------------------------------------#
+# Port of HTTP(S) proxy server on the local end
 port: 7890
-
-# SOCKS5 代理端口
+# Port of SOCKS5 proxy server on the local end
 socks-port: 7891
-
-# Linux 和 macOS 的 redir 代理端口 (如需使用此功能，请取消注释)
+# HTTP(S) and SOCKS4(A)/SOCKS5 server on the same port
+# mixed-port: 7890
+#--------------------------------------------------------------------------------------#
+# Transparent proxy server port for Linux and macOS (Redirect TCP and TProxy UDP)
 redir-port: 7892
-
-# 允许局域网的连接（可用来共享代理）
+# Transparent proxy server port for Linux (TProxy TCP and TProxy UDP)
+# tproxy-port: 7893
+#--------------------------------------------------------------------------------------#
+# Set to true to allow connections to the local-end server from
+# other LAN IP addresses
 allow-lan: false
-
-#启用ipv6
-ipv6: true
-
-# 规则模式：Global（全局代理）/ Rule（规则） / Script(腳本) / Direct（全局直连）
-mode: Rule
-
-# 设置日志输出级别 (默认级别：silent，即不输出任何内容，以避免因日志内容过大而导致程序内存溢出）。
-# 5 个级别：silent / info / warning / error / debug。级别越高日志输出量越大，越倾向于调试，若需要请自行开启。
-log-level: silent
-
-# clash 的 RESTful API
-external-controller: '0.0.0.0:9090'
-
-# 您可以将静态网页资源（如 clash-dashboard）放置在一个目录中，clash 将会服务于 `${API}/ui`
-# 参数应填写配置目录的相对路径或绝对路径。
-# external-ui: folder
-
-# RESTful API 的口令 (可选)
-secret: ""
-
+# This is only applicable when `allow-lan` is `true`
+# '*': bind all IP addresses
+# 192.168.122.11: bind a single IPv4 address
+# "[aaaa::a8aa:ff:fe09:57d8]": bind a single IPv6 address
+bind-address: '*'
+#--------------------------------------------------------------------------------------#
+# Clash by default prints logs to STDOUT
+# info / warning / error / debug / silent
+log-level: info
+# RESTful web API listening address
+external-controller: 127.0.0.1:9090
+#--------------------------------------------------------------------------------------#
+# When set to false, resolver won't translate hostnames to IPv6 addresses
+ipv6: false
+# Clash router working mode
+# rule: rule-based packet routing
+# global: all packets will be forwarded to a single endpoint
+# direct: directly forward the packets to the Internet
+mode: rule
 # [Meta Feature]
-#tcp-concurrent: true
-
-# DNS 设置
+tcp-concurrent: true
+#--------------------------------------------------------------------------------------#
+# DNS server settings
+# This section is optional. When not present, the DNS server will be disabled.
 dns:
- enable: true
- ipv6: true
- listen: 0.0.0.0:53
-
-# default-nameserver又叫Bootstrap DNS，用来解释nameserver
- default-nameserver:
-   - 119.29.29.29
-   - 223.5.5.5
-
-# 增强模式，fake-ip or redir-host，redir-host从2023.02.16不再可用
- enhanced-mode: fake-ip  
- 
-# 不知道是什么
- fake-ip-range: 198.18.0.1/16
-
-# lookup hosts and return IP record
- use-hosts: true
-
-# fake ip white domain list, Always return real IP for increased compatibility
- fake-ip-filter:               
-   - time.*.com
-   - localhost.ptlogin2.qq.com
-   - '*.lan'
-   - .srv.nintendo.net
-   - .stun.*.*
-   - .stun.*.*.*
-   - .stun.*.*.*.*
-   - xbox.*.microsoft.com
-   - .xboxlive.com
-   
-
- nameserver:
-   - https://223.5.5.5/dns-query
-   - https://1.12.12.12/dns-query
-
-# concurrent request with nameserver, fallback used when GEOIP country isn't CN
- fallback:
-   - https://dns.google/dns-query
-   - https://cloudflare-dns.com/dns-query
-
- fallback-filter:
-  geoip: true
-  geoip-code: CN
-  ipcidr:
-   - 240.0.0.0/4
-   - 127.0.0.1/32
-   - 0.0.0.0/32
-
-# 代理节点
+  enable: true
+  listen: 0.0.0.0:53
+  ipv6: false # when the false, response to AAAA questions will be empty
+  # These nameservers are used to resolve the DNS nameserver hostnames below.
+  # Specify IP addresses only
+  default-nameserver:
+    - 114.114.114.114
+    - 8.8.8.8
+  enhanced-mode: fake-ip # or redir-host (not recommended)
+  fake-ip-range: 198.18.0.1/16 # Fake IP addresses pool CIDR
+  fake-ip-filter:
+    - '*.lan'
+    - '*.local'
+    - '*.msftconnecttest.com'
+  nameserver:
+    - dhcp://en0 # dns from dhcp
+    # - 223.5.5.5
+    # - 114.114.114.114
+    # - https://1.1.1.1/dns-query # DNS over HTTPS
+#--------------------------------------------------------------------------------------#
+proxies:
+#--------------------------------------------------------------------------------------#
 proxy-providers:
-  jiji:
+  Global-ISP:
     type: http
-    path: ./proxy-providers/jiji.yaml 
     url: "http://a01.pokabu.tokyo/link/FJaQloK6HHuOxrO6?clash=2"
-    filter: (TW)
-    interval: 86400
+    interval: 3600
+    path: "./Proxy-Providers/Global-ISP.yaml"
     health-check:
-        enable: true
-        url: http://www.gstatic.com/generate_204
-        interval: 86400
-
-
-# 策略组
+      enable: true
+      interval: 600
+      url: http://1.1.1.1/generate_204
+#--------------------------------------------------------------------------------------#
 proxy-groups:
-  - name: PROXY
-    type: load-balance
-    url: http://www.gstatic.com/generate_204
-    interval: 1800
-    strategy: consistent-hashing
+  - name: "Switch"
+    type: select
+    proxies:
+      - Fallback
+      - Global-ISP
+    url: http://1.1.1.1/generate_204
+    interval: 300
+  - name: "Fallback"
+    type: fallback
+    proxies:
+      - HongKong
+      - Taiwan
+      - Singapore
+      - Japan
+      - USA
+      - Global-ISP
+    url: http://1.1.1.1/generate_204
+    interval: 300
+  - name: "Global-ISP"
+    type: select
     use:
-      - jiji
-
-# url-test
-#  -
-#    name: PROXY
-#    type: url-test
-#    url: http://www.gstatic.com/generate_204
-#    interval: 1800
-#    tolerance: 10
-#    use:
-#      - jiji
-
-#select 手动选择，该组在节点列表上，手动选择列表或者 proxy-group
-#url-test 延迟最低节点，测试该组所有节点的延迟
-#fallback 回落，连接该组第一个节点，不可用时切换到下一个节点
-#load-balance 负载均衡，由该组2个以上的节点提供链接
-#     strategy:
-#     consistent-hashing 同一个域名下会持续使用同一个ip, 默认选择该项，防止频繁跳ip被网站ban
-#     round-robin 轮询，每访问一个链接，顺序更换节点访问
-
-
-
+      - Global-ISP
+    url: http://1.1.1.1/generate_204
+    interval: 300
+  - name: "CN"
+    type: select
+    proxies:
+      - DIRECT
+      - Global-ISP
+    url: http://connectivitycheck.platform.hicloud.com/generate_204
+    interval: 300
+  - name: "Netflix"
+    type: select
+    proxies:
+      - HongKong
+      - Taiwan
+      - Singapore
+      - Japan
+      - USA
+    url: http://1.1.1.1/generate_204
+    interval: 300
+  - name: "Bahamut"
+    type: select
+    proxies:
+      - HongKong
+      - Taiwan
+      - Singapore
+      - Japan
+      - USA
+    url: http://1.1.1.1/generate_204
+    interval: 300
+  - name: "HongKong"
+    type: select
+    filter: '^(?!.*?(Premium)).*(香港|Hong Kong|HK)'
+    use:
+      - Global-ISP
+    url: http://1.1.1.1/generate_204
+    interval: 300
+  - name: "Taiwan"
+    type: select
+    filter: '^(?!.*?(Premium)).*(台湾|Taiwan|TW)'
+    use:
+      - Global-ISP
+    url: http://1.1.1.1/generate_204
+    interval: 300
+  - name: "Singapore"
+    type: select
+    filter: '^(?!.*?(Premium)).*(新加坡|Singapore|SG)'
+    use:
+      - Global-ISP
+    url: http://1.1.1.1/generate_204
+    interval: 300
+  - name: "Japan"
+    type: select
+    filter: '^(?!.*?(Premium)).*(日本|Japan|JP)'
+    use:
+      - Global-ISP
+    url: http://1.1.1.1/generate_204
+    interval: 300
+  - name: "USA"
+    type: select
+    filter: '^(?!.*?(Premium)).*(美国|USA|US)'
+    use:
+      - Global-ISP
+    url: http://1.1.1.1/generate_204
+    interval: 300
+#--------------------------------------------------------------------------------------#
 rules:
-##########自定义添加域名###########
-#DOMAIN-SUFFIX：域名后缀匹配      #
-#DOMAIN：域名匹配                #
-#DOMAIN-KEYWORD：域名关键字匹配   #
-#IP-CIDR：IP段匹配               #
-#SRC-IP-CIDR：源IP段匹配         #
-#GEOIP：GEOIP数据库（国家代码）匹配 #
-#DST-PORT：目标端口匹配           #
-#SRC-PORT：源端口匹配             #
-#PROCESS-NAME：源进程名匹配       #
-#RULE-SET：Rule Provider规则匹配 #
-#MATCH：全匹配                   #
-################################
-
-###########rules##############
-#######第一条规则加密80端口防止共享检测
-  - DST-PORT,80,PROXY
-#  - RULE-SET,Advertising,REJECT
-#  - RULE-SET,BlockHttpDNS,REJECT
-#  - RULE-SET,ExtraReject,REJECT
-#  - RULE-SET,Apple,DIRECT
-#  - RULE-SET,Microsoft,DIRECT
-#  - RULE-SET,ChinaMax,DIRECT
-#  - RULE-SET,Lan,DIRECT
+  # UA
+  - DST-PORT,80,Switch
+  - DST-PORT,8080,Switch
+  # Personal Define
+  - DOMAIN,speed.cloudflare.com,CN
+  - DOMAIN-SUFFIX,test-ipv6.com,CN
+  # Unbreak
+  - RULE-SET,Unbreak,CN
+  # Advertising & Hijacking & Privacy
+  - DOMAIN-SUFFIX,loli.net,CN # SM.MS
+  - DOMAIN,click.simba.taobao.com,CN # Web Recommend
+  - RULE-SET,Advertising,REJECT
+  - RULE-SET,Advertising-antiAD,REJECT
+  # Apple
+  - RULE-SET,Apple,CN
+  # Microsoft
+  - RULE-SET,Microsoft,CN
+  # Nintendo
+  - RULE-SET,Nintendo,Switch
+  # Notion
+  - DOMAIN,http-inputs-notion.splunkcloud.com,Switch
+  - RULE-SET,Notion,Switch
+  # Hanime1
+  - DOMAIN-SUFFIX,hanime1.me,Switch
+  - DOMAIN-SUFFIX,imgur.com,Switch
+  - DOMAIN-SUFFIX,sb-cd.com,Switch
+  - DOMAIN-SUFFIX,cdn1122.com,CN
+  - DOMAIN-SUFFIX,hembed.com,CN
+  - DOMAIN-SUFFIX,motherlessmedia.com,Switch
+  # Steam
+  - DOMAIN-SUFFIX,steamcommunity.com,Switch
+  - DOMAIN,avatars.akamai.steamstatic.com,Switch
+  - DOMAIN,api.steampowered.com,Switch
+  - DOMAIN,store.steampowered.com,Switch
+  - RULE-SET,SteamCN,CN
+  # Telegram
+  - RULE-SET,Telegram,Switch
+  # Spotify
+  - DOMAIN,open.spotify.com,Switch
+  - DOMAIN-SUFFIX,akamaized.net,CN
+  - DOMAIN-SUFFIX,spotify.com,CN
+  - DOMAIN-SUFFIX,spotifycdn.com,CN
+  - DOMAIN-SUFFIX,scdn.co,CN
+  - DOMAIN-SUFFIX,branch.io,CN
+  - RULE-SET,Spotify,CN
+  # Streaming
+  - DOMAIN,anime1.me,Switch
+  - DOMAIN-SUFFIX,anime1.me,CN
+  - RULE-SET,Netflix,Netflix
+  - RULE-SET,Bahamut,Bahamut
+  - RULE-SET,Streaming,Switch
+  # Global Domain
+  - DOMAIN-SUFFIX,imap.gmail.com,Switch # Gmail
+  - DOMAIN-SUFFIX,smtp.gmail.com,Switch # Gmail
+  # China Domain
+  - DOMAIN-SUFFIX,ghproxy.com,CN
+  - DOMAIN-SUFFIX,smms.app,CN # SM.MS
+  - DOMAIN-SUFFIX,conntest.moonlight-stream.org,CN # moonlight 串流网络测试
+  # Global SET
+  - RULE-SET,Global,Switch
+  # China SET
+  - RULE-SET,China,CN
+  #---!---DNS-Resolve---!--- #
+  #---!---DNS-Resolve---!--- #
+  #---!---DNS-Resolve---!--- #
+  # GeoIP China
+  - GEOIP,CN,CN
+  # Local Area Network
   - GEOIP,LAN,DIRECT
-  - GEOIP,CN,DIRECT,no-resolve
-  - MATCH,PROXY
-
-
+  # FINAL
+  - MATCH,Switch
+#--------------------------------------------------------------------------------------#
 rule-providers:
-
-
+  Unbreak:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Unbreak.yaml
+    url: https://cdn.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Unbreak.yaml
+    interval: 86400
   Advertising:
     type: http
-    behavior: classical
-    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Advertising/Advertising_Classical.yaml"
-    path: ./ruleset/Advertising_Classical.yaml
-    interval: 604800
-
-  BlockHttpDNS:
+    behavior: domain
+    path: ./RuleSet/Advertising.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Advertising/Advertising_Domain.yaml
+    interval: 86400
+  Advertising-antiAD:
     type: http
-    behavior: classical
-    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/BlockHttpDNS/BlockHttpDNS.yaml"
-    path: ./ruleset/BlockHttpDNS.yaml
-    interval: 604800
-
+    behavior: domain
+    path: ./RuleSet/Advertising-antiAD.yaml
+    url: https://anti-ad.net/clash.yaml
+    interval: 86400
   Apple:
     type: http
     behavior: classical
-    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Apple/Apple.yaml"
-    path: ./ruleset/Apple.yaml
-    interval: 604800
-
+    path: ./RuleSet/Apple.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apple/Apple.yaml
+    interval: 86400
   Microsoft:
     type: http
     behavior: classical
-    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Microsoft/Microsoft.yaml"
-    path: ./ruleset/Microsoft.yaml
-    interval: 604800
-
-  ChinaMax:
+    path: ./RuleSet/Microsoft.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml
+    interval: 86400
+  Nintendo:
     type: http
     behavior: classical
-    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/ChinaMax/ChinaMax_Classical.yaml"
-    path: ./ruleset/ChinaMax_Classical.yaml
-    interval: 604800
-
-  Lan:
+    path: ./RuleSet/Nintendo.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Nintendo/Nintendo.yaml
+    interval: 86400
+  Notion:
     type: http
     behavior: classical
-    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Lan/Lan.yaml"
-    path: ./ruleset/Lan.yaml
-    interval: 604800
-
-
-
-    
-  
-
-
+    path: ./RuleSet/Notion.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Notion/Notion.yaml
+    interval: 86400
+  SteamCN:
+    type: http
+    behavior: classical
+    path: ./RuleSet/SteamCN.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SteamCN/SteamCN.yaml
+    interval: 86400
+  Telegram:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Telegram.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram.yaml
+    interval: 86400
+  Spotify:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Spotify.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Spotify/Spotify.yaml
+    interval: 86400
+  Netflix:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Netflix.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Netflix/Netflix.yaml
+    interval: 86400
+  Bahamut:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Bahamut.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Bahamut/Bahamut.yaml
+    interval: 86400
+  Streaming:
+    type: http
+    behavior: domain
+    path: ./RuleSet/Streaming.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GlobalMedia/GlobalMedia_Domain.yaml
+    interval: 86400
+  Global:
+    type: http
+    behavior: domain
+    path: ./RuleSet/Global.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Global/Global_Domain.yaml
+    interval: 86400
+  China:
+    type: http
+    behavior: domain
+    path: ./RuleSet/China.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/China/China_Domain.yaml
+    interval: 86400
+#--------------------------------------------------------------------------------------#
+parsers:
+#--------------------------------------------------------------------------------------#
