@@ -145,6 +145,21 @@ rules:
 #MATCH：全匹配                   #
 ################################
 
+
+###################################
+#如果存在 DPI 检测，可以尝试加入这些规则#
+# WeChat & QQ                     #
+#- DST-PORT,80,PROXY ## TCP       #
+#- DST-PORT,5222,PROXY            #
+#- DST-PORT,5223,PROXY            #
+#- DST-PORT,5228,PROXY            #
+#- DST-PORT,8000,PROXY # UDP      #
+#- DST-PORT,8001,PROXY # UDP      #
+#- DST-PORT,8080,PROXY            #
+#- DST-PORT,14000,PROXY           #
+###################################
+
+
 ###########rules##############
 #######第一条规则加密80端口防止共享检测
 #  - DST-PORT,80,PROXY
@@ -219,10 +234,3 @@ rule-providers:
     url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Lan/Lan.yaml"
     path: ./ruleset/Lan.yaml
     interval: 604800
-
-
-
-    
-  
-
-
