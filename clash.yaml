@@ -88,7 +88,7 @@ dns:
 
 # 代理节点
 proxy-providers:
-  jiji:
+  几鸡:
     type: http
     path: ./proxy-providers/jiji.yaml 
     url: "http://a01.pokabu.tokyo/link/FJaQloK6HHuOxrO6?clash=2"
@@ -108,7 +108,7 @@ proxy-groups:
     interval: 1800
     strategy: consistent-hashing
     use:
-      - jiji
+      - 几鸡
 
 # url-test
 #  -
@@ -118,7 +118,7 @@ proxy-groups:
 #    interval: 1800
 #    tolerance: 10
 #    use:
-#      - jiji
+#      - 几鸡
 
 #select 手动选择，该组在节点列表上，手动选择列表或者 proxy-group
 #url-test 延迟最低节点，测试该组所有节点的延迟
@@ -150,7 +150,7 @@ rules:
 #  - DST-PORT,80,PROXY
   - RULE-SET,Advertising,REJECT
   - RULE-SET,BlockHttpDNS,REJECT
-#- RULE-SET,ExtraReject,REJECT
+  - RULE-SET,MyReject,REJECT
   - RULE-SET,Apple,DIRECT
   - RULE-SET,Microsoft,DIRECT
   - RULE-SET,ChinaMax,DIRECT
@@ -174,6 +174,13 @@ rule-providers:
     type: http
     behavior: classical
     url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/BlockHttpDNS/BlockHttpDNS.yaml"
+    path: ./ruleset/BlockHttpDNS.yaml
+    interval: 604800
+
+   MyReject:
+    type: http
+    behavior: classical
+    url: "https://gh-proxy.com/https://raw.githubusercontent.com/Teacher-c/clash/main/MyReject.yaml"
     path: ./ruleset/BlockHttpDNS.yaml
     interval: 604800
 
