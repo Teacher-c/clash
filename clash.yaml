@@ -92,7 +92,7 @@ proxy-providers:
     type: http
     path: ./proxy-providers/jiji.yaml 
     url: "http://a01.pokabu.tokyo/link/FJaQloK6HHuOxrO6?clash=2"
-    filter: ([4倍]TW)
+    filter: (TW)
     interval: 86400
     health-check:
         enable: true
