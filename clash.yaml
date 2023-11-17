@@ -34,7 +34,7 @@ external-controller: '0.0.0.0:9090'
 secret: ""
 
 # [Meta Feature]
-#tcp-concurrent: true
+tcp-concurrent: true
 
 # DNS 设置
 dns:
@@ -92,7 +92,7 @@ proxy-providers:
     type: http
     path: ./proxy-providers/jiji.yaml 
     url: "http://a01.pokabu.tokyo/link/FJaQloK6HHuOxrO6?clash=2"
-    filter: (TW)
+    filter: ([4倍]TW)
     interval: 86400
     health-check:
         enable: true
