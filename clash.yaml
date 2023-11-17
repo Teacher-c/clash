@@ -34,7 +34,7 @@ external-controller: '0.0.0.0:9090'
 secret: ""
 
 # [Meta Feature]
-tcp-concurrent: true
+#tcp-concurrent: true
 
 # DNS 设置
 dns:
