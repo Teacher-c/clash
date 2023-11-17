@@ -167,8 +167,8 @@ rule-providers:
   Advertising:
     type: http
     behavior: classical
-    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Advertising/Advertising_Classical.yaml"
-    path: ./ruleset/Advertising_Classical.yaml
+    url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Advertising/Advertising.yaml"
+    path: ./ruleset/Advertising.yaml
     interval: 604800
 
   AdvertisingMiTV:
