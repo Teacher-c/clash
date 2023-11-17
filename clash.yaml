@@ -170,7 +170,7 @@ rules:
   - RULE-SET,Apple,DIRECT
   - RULE-SET,Microsoft,DIRECT
   - RULE-SET,ChinaMax,DIRECT
-  - RULE-SET,Lan,DIRECT
+  - RULE-SET,LocalLan,DIRECT
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT
   - MATCH,PROXY
@@ -228,7 +228,7 @@ rule-providers:
     path: ./ruleset/ChinaMax_Classical.yaml
     interval: 604800
 
-  Lan:
+  LocalLan:
     type: http
     behavior: classical
     url: "https://gh-proxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Lan/Lan.yaml"
