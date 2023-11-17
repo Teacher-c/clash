@@ -185,7 +185,7 @@ rule-providers:
     path: ./ruleset/BlockHttpDNS.yaml
     interval: 604800
 
-   MyReject:
+  MyReject:
     type: http
     behavior: classical
     url: "https://gh-proxy.com/https://raw.githubusercontent.com/Teacher-c/clash/main/MyReject.yaml"
