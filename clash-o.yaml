@@ -208,7 +208,7 @@ rule-providers:
     path: ./ruleset/MyReject.yaml
     interval: 604800
 
-   MyDirect:
+  MyDirect:
     type: http
     behavior: classical
     url: "https://raw.githubusercontent.com/Teacher-c/clash/main/MyDirect.yaml"
