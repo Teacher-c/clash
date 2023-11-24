@@ -207,6 +207,223 @@ rule-providers:
     path: ./ruleset/MyReject.yaml
     interval: 604800
 
+    ## ！！！只有这份文件的端口设置会随ClashX启动生效
+#---------------------------------------------------#
+
+# HTTP 代理端口
+port: 7890
+
+# SOCKS5 代理端口
+socks-port: 7891
+
+# Linux 和 macOS 的 redir 代理端口 (如需使用此功能，请取消注释)
+redir-port: 7892
+
+# 允许局域网的连接（可用来共享代理）
+allow-lan: false
+
+#启用ipv6
+ipv6: true
+
+# 规则模式：Global（全局代理）/ Rule（规则） / Script(腳本) / Direct（全局直连）
+mode: Rule
+
+# 设置日志输出级别 (默认级别：silent，即不输出任何内容，以避免因日志内容过大而导致程序内存溢出）。
+# 5 个级别：silent / info / warning / error / debug。级别越高日志输出量越大，越倾向于调试，若需要请自行开启。
+log-level: silent
+
+# clash 的 RESTful API
+external-controller: '0.0.0.0:9090'
+
+# 您可以将静态网页资源（如 clash-dashboard）放置在一个目录中，clash 将会服务于 `${API}/ui`
+# 参数应填写配置目录的相对路径或绝对路径。
+# external-ui: folder
+
+# RESTful API 的口令 (可选)
+secret: ""
+
+# [Meta Feature]
+tcp-concurrent: true
+
+# DNS 设置
+dns:
+ enable: true
+ ipv6: true
+ listen: 0.0.0.0:53
+
+# default-nameserver又叫Bootstrap DNS，用来解释nameserver
+ default-nameserver:
+   - 119.29.29.29
+   - 223.5.5.5
+
+# 增强模式，fake-ip or redir-host，redir-host从2023.02.16不再可用
+ enhanced-mode: fake-ip  
+ 
+# 不知道是什么
+ fake-ip-range: 198.18.0.1/16
+
+# lookup hosts and return IP record
+ use-hosts: true
+
+# fake ip white domain list, Always return real IP for increased compatibility
+ fake-ip-filter:               
+   - time.*.com
+   - localhost.ptlogin2.qq.com
+   - '*.lan'
+   - .srv.nintendo.net
+   - .stun.*.*
+   - .stun.*.*.*
+   - .stun.*.*.*.*
+   - xbox.*.microsoft.com
+   - .xboxlive.com
+   
+
+ nameserver:
+   - https://223.5.5.5/dns-query
+   - https://1.12.12.12/dns-query
+
+# concurrent request with nameserver, fallback used when GEOIP country isn't CN
+ fallback:
+   - https://dns.google/dns-query
+   - https://cloudflare-dns.com/dns-query
+
+ fallback-filter:
+  geoip: true
+  geoip-code: CN
+  ipcidr:
+   - 240.0.0.0/4
+   - 127.0.0.1/32
+   - 0.0.0.0/32
+
+# 代理节点
+proxy-providers:
+  几鸡:
+    type: http
+    path: ./proxy-providers/几鸡.yaml 
+    url: "http://a01.pokabu.tokyo/link/ZoRSfGveQwsafZOp?clash=2"
+    filter: (4倍]TW)
+    interval: 86400
+    health-check:
+        enable: true
+        url: http://www.gstatic.com/generate_204
+        interval: 86400
+
+
+# 策略组
+proxy-groups:
+  - name: PROXY
+    type: load-balance
+    url: http://www.gstatic.com/generate_204
+    interval: 1800
+    strategy: consistent-hashing
+    use:
+      - 几鸡
+
+# url-test
+#  -
+#    name: PROXY
+#    type: url-test
+#    url: http://www.gstatic.com/generate_204
+#    interval: 1800
+#    tolerance: 10
+#    use:
+#      - 几鸡
+
+#select 手动选择，该组在节点列表上，手动选择列表或者 proxy-group
+#url-test 延迟最低节点，测试该组所有节点的延迟
+#fallback 回落，连接该组第一个节点，不可用时切换到下一个节点
+#load-balance 负载均衡，由该组2个以上的节点提供链接
+#     strategy:
+#     consistent-hashing 同一个域名下会持续使用同一个ip, 默认选择该项，防止频繁跳ip被网站ban
+#     round-robin 轮询，每访问一个链接，顺序更换节点访问
+
+
+
+rules:
+##########自定义添加域名###########
+#DOMAIN-SUFFIX：域名后缀匹配      #
+#DOMAIN：域名匹配                #
+#DOMAIN-KEYWORD：域名关键字匹配   #
+#IP-CIDR：IP段匹配               #
+#SRC-IP-CIDR：源IP段匹配         #
+#GEOIP：GEOIP数据库（国家代码）匹配 #
+#DST-PORT：目标端口匹配           #
+#SRC-PORT：源端口匹配             #
+#PROCESS-NAME：源进程名匹配       #
+#RULE-SET：Rule Provider规则匹配 #
+#MATCH：全匹配                   #
+################################
+
+
+###################################
+#如果存在 DPI 检测，可以尝试加入这些规则#
+# WeChat & QQ                     #
+#- DST-PORT,80,PROXY ## TCP       #
+#- DST-PORT,5222,PROXY            #
+#- DST-PORT,5223,PROXY            #
+#- DST-PORT,5228,PROXY            #
+#- DST-PORT,8000,PROXY # UDP      #
+#- DST-PORT,8001,PROXY # UDP      #
+#- DST-PORT,8080,PROXY            #
+#- DST-PORT,14000,PROXY           #
+###################################
+
+
+###########rules##############
+#######第一条规则加密80端口防止共享检测
+  - DST-PORT,80,PROXY
+  #- RULE-SET,Advertising,REJECT
+  #- RULE-SET,AdvertisingMiTV,REJECT
+  #- RULE-SET,BlockHttpDNS,REJECT
+  #- RULE-SET,MyReject,REJECT
+  - RULE-SET,MyDirect,DIRECT
+  - RULE-SET,Apple,DIRECT
+  - RULE-SET,Microsoft,DIRECT
+  - RULE-SET,ChinaMax,DIRECT
+  - RULE-SET,LocalLan,DIRECT
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY
+
+
+rule-providers:
+
+
+  Advertising:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Advertising/Advertising_Classical.yaml"
+    path: ./ruleset/Advertising_Classical.yaml
+    interval: 604800
+
+  AdvertisingMiTV:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AdvertisingMiTV/AdvertisingMiTV.yaml"
+    path: ./ruleset/AdvertisingMiTV.yaml
+    interval: 604800
+
+  BlockHttpDNS:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/BlockHttpDNS/BlockHttpDNS.yaml"
+    path: ./ruleset/BlockHttpDNS.yaml
+    interval: 604800
+
+  MyReject:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/Teacher-c/clash/main/MyReject.yaml"
+    path: ./ruleset/MyReject.yaml
+    interval: 604800
+
+  MyDirect:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/Teacher-c/clash/main/MyDirect.yaml"
+    path: ./ruleset/MyDirect.yaml
+    interval: 604800
+
   Apple:
     type: http
     behavior: classical
