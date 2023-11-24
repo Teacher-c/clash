@@ -167,6 +167,7 @@ rules:
   #- RULE-SET,AdvertisingMiTV,REJECT
   #- RULE-SET,BlockHttpDNS,REJECT
   #- RULE-SET,MyReject,REJECT
+  - RULE-SET,MyDirect,DIRECT
   - RULE-SET,Apple,DIRECT
   - RULE-SET,Microsoft,DIRECT
   - RULE-SET,ChinaMax,DIRECT
@@ -205,6 +206,13 @@ rule-providers:
     behavior: classical
     url: "https://raw.githubusercontent.com/Teacher-c/clash/main/MyReject.yaml"
     path: ./ruleset/MyReject.yaml
+    interval: 604800
+
+   MyDirect:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/Teacher-c/clash/main/MyDirect.yaml"
+    path: ./ruleset/MyDirect.yaml
     interval: 604800
 
   Apple:
