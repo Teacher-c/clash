@@ -208,7 +208,6 @@ rule-providers:
     path: ./ruleset/MyReject.yaml
     interval: 604800
 
-
   MyDirect:
     type: http
     behavior: classical
