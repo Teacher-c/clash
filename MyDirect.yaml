@@ -1,5 +1,5 @@
 payload:
-  - DOMAIN-SUFFIX,appstorrent.ru
-  - DOMAIN-SUFFIX,y.luxury
+  - DOMAIN-KEYWORD,appstorrent
+  - DOMAIN-KEYWORD,luxury
   - DOMAIN,vk.com
   - DOMAIN,epin.com.tr
