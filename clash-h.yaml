@@ -162,12 +162,12 @@ rules:
 
 ###########rules##############
 #######第一条规则加密80端口防止共享检测
-  #- DST-PORT,80,🐔
+  #- DST-PORT,80,🐶
   #- RULE-SET,Advertising,REJECT
   #- RULE-SET,AdvertisingMiTV,REJECT
   #- RULE-SET,BlockHttpDNS,REJECT
   #- RULE-SET,MyReject,REJECT
-  - RULE-SET,iCloudPrivateRelay,🐔
+  - RULE-SET,iCloudPrivateRelay,🐶
   - RULE-SET,MyDirect,DIRECT
   - RULE-SET,Apple,DIRECT
   - RULE-SET,Microsoft,DIRECT
@@ -175,7 +175,7 @@ rules:
   - RULE-SET,LocalLan,DIRECT
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT
-  - MATCH,🐔
+  - MATCH,🐶
 
 
 rule-providers:
