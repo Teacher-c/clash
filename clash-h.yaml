@@ -118,7 +118,7 @@ proxy-groups:
 #    interval: 1800
 #    tolerance: 10
 #    use:
-#      - 几鸡
+#      - 🐔
 
 #select 手动选择，该组在节点列表上，手动选择列表或者 proxy-group
 #url-test 延迟最低节点，测试该组所有节点的延迟
@@ -167,8 +167,8 @@ rules:
   #- RULE-SET,AdvertisingMiTV,REJECT
   #- RULE-SET,BlockHttpDNS,REJECT
   #- RULE-SET,MyReject,REJECT
-  - RULE-SET,iCloudPrivateRelay,PROXY
-  - RULE-SET,MyDirect,🐔
+  - RULE-SET,iCloudPrivateRelay,🐔
+  - RULE-SET,MyDirect,DIRECT
   - RULE-SET,Apple,DIRECT
   - RULE-SET,Microsoft,DIRECT
   - RULE-SET,ChinaMax,DIRECT
