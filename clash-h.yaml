@@ -11,10 +11,10 @@ socks-port: 7891
 redir-port: 7892
 
 # 允许局域网的连接（可用来共享代理）
-allow-lan: false
+allow-lan: true
 
 #启用ipv6
-ipv6: true
+ipv6: false
 
 # 规则模式：Global（全局代理）/ Rule（规则） / Script(腳本) / Direct（全局直连）
 mode: Rule
@@ -167,12 +167,12 @@ rules:
   #- RULE-SET,AdvertisingMiTV,REJECT
   #- RULE-SET,BlockHttpDNS,REJECT
   #- RULE-SET,MyReject,REJECT
-  - RULE-SET,iCloudPrivateRelay,🐶
-  - RULE-SET,MyDirect,DIRECT
-  - RULE-SET,Apple,DIRECT
-  - RULE-SET,Microsoft,DIRECT
-  - RULE-SET,ChinaMax,DIRECT
-  - RULE-SET,LocalLan,DIRECT
+  #- RULE-SET,iCloudPrivateRelay,🐶
+  #- RULE-SET,MyDirect,DIRECT
+  #- RULE-SET,Apple,DIRECT
+  #- RULE-SET,Microsoft,DIRECT
+  #- RULE-SET,ChinaMax,DIRECT
+  #- RULE-SET,LocalLan,DIRECT
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT
   - MATCH,🐶
