@@ -75,8 +75,8 @@ dns:
 
 # concurrent request with nameserver, fallback used when GEOIP country isn't CN
  fallback:
-   - https://dns.google/dns-query
-   - https://cloudflare-dns.com/dns-query
+   - https://8.8.8.8/dns-query
+   - https://1.1.1.1/dns-query
 
  fallback-filter:
   geoip: true
