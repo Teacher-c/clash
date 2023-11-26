@@ -166,13 +166,13 @@ rules:
   #- RULE-SET,Advertising,REJECT
   #- RULE-SET,AdvertisingMiTV,REJECT
   #- RULE-SET,BlockHttpDNS,REJECT
-  #- RULE-SET,MyReject,REJECT
-  #- RULE-SET,iCloudPrivateRelay,🐶
-  #- RULE-SET,MyDirect,DIRECT
-  #- RULE-SET,Apple,DIRECT
-  #- RULE-SET,Microsoft,DIRECT
-  #- RULE-SET,ChinaMax,DIRECT
-  #- RULE-SET,LocalLan,DIRECT
+  - RULE-SET,MyReject,REJECT
+  - RULE-SET,iCloudPrivateRelay,🐶
+  - RULE-SET,MyDirect,DIRECT
+  - RULE-SET,Apple,DIRECT
+  - RULE-SET,Microsoft,DIRECT
+  - RULE-SET,ChinaMax,DIRECT
+  - RULE-SET,LocalLan,DIRECT
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT
   - MATCH,🐶
