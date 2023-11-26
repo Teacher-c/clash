@@ -20,3 +20,4 @@ payload:
   - DOMAIN,tools.google.com
 #屏蔽Xmind更新
   - DOMAIN,dl2.xmind.com
+  - DOMAIN,baidu.com
