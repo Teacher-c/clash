@@ -91,7 +91,7 @@ proxy-providers:
   🐔:
     type: http
     path: ./proxy-providers/鸡.yaml 
-    url: "http://a01.pokabu.tokyo/link/ZoRSfGveQwsafZOp?clash=2"
+    url: ""
     filter: (4倍]TW)
     interval: 86400
     health-check:
@@ -167,15 +167,16 @@ rules:
   - RULE-SET,AdvertisingMiTV,REJECT
   - RULE-SET,BlockHttpDNS,REJECT
   - RULE-SET,MyReject,REJECT
-  #- RULE-SET,iCloudPrivateRelay,🐶
-  #- RULE-SET,MyDirect,DIRECT
+  - RULE-SET,iCloudPrivateRelay,🐶
+  - RULE-SET,MyDirect,DIRECT
   - GEOSITE,private,DIRECT
   - GEOSITE,CN,DIRECT
   - GEOIP,private,DIRECT,no-resolve
   - GEOIP,CN,DIRECT,no-resolve
   - MATCH,🐶
 
- rule-providers:
+
+rule-providers:
 
 
   Advertising:
@@ -205,3 +206,11 @@ rules:
     url: "https://raw.githubusercontent.com/Teacher-c/clash/main/MyReject.yaml"
     path: ./ruleset/MyReject.yaml
     interval: 604800
+
+  MyDirect:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/Teacher-c/clash/main/MyDirect.yaml"
+    path: ./ruleset/MyDirect.yaml
+    interval: 604800
+
