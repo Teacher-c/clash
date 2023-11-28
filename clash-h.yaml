@@ -173,10 +173,6 @@ rules:
   - RULE-SET,Microsoft,DIRECT
   - RULE-SET,ChinaMax,DIRECT
   - RULE-SET,LocalLan,DIRECT
-  - GEOSITE,private,DIRECT
-  - GEOSITE,CN,DIRECT
-  - GEOIP,private,DIRECT,no-resolve
-  - GEOIP,CN,DIRECT,no-resolve
   - MATCH,🐶
 
 
