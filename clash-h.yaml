@@ -167,8 +167,12 @@ rules:
   - RULE-SET,AdvertisingMiTV,REJECT
   - RULE-SET,BlockHttpDNS,REJECT
   - RULE-SET,MyReject,REJECT
-  #- RULE-SET,iCloudPrivateRelay,🐶
-  #- RULE-SET,MyDirect,DIRECT
+  - RULE-SET,iCloudPrivateRelay,🐶
+  - RULE-SET,MyDirect,DIRECT
+  - RULE-SET,Apple,DIRECT
+  - RULE-SET,Microsoft,DIRECT
+  - RULE-SET,ChinaMax,DIRECT
+  - RULE-SET,LocalLan,DIRECT
   - GEOSITE,private,DIRECT
   - GEOSITE,CN,DIRECT
   - GEOIP,private,DIRECT,no-resolve
@@ -205,5 +209,47 @@ rule-providers:
     behavior: classical
     url: "https://raw.githubusercontent.com/Teacher-c/clash/main/MyReject.yaml"
     path: ./ruleset/MyReject.yaml
+    interval: 604800
+
+  MyDirect:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/Teacher-c/clash/main/MyDirect.yaml"
+    path: ./ruleset/MyDirect.yaml
+    interval: 604800
+
+  iCloudPrivateRelay:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/iCloudPrivateRelay/iCloudPrivateRelay_No_Resolve.yaml"
+    path: ./ruleset/iCloudPrivateRelay.yaml
+    interval: 604800
+
+  Apple:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Classical_No_Resolve.yaml"
+    path: ./ruleset/Apple.yaml
+    interval: 604800
+
+  Microsoft:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/release/rule/Clash/Microsoft/Microsoft_No_Resolve.yaml"
+    path: ./ruleset/Microsoft.yaml
+    interval: 604800
+
+  ChinaMax:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMax/ChinaMax_Classical_No_Resolve.yaml"
+    path: ./ruleset/ChinaMax_Classical.yaml
+    interval: 604800
+
+  LocalLan:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan_No_Resolve.yaml"
+    path: ./ruleset/Lan.yaml
     interval: 604800
 
