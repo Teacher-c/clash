@@ -167,8 +167,8 @@ rules:
   - RULE-SET,AdvertisingMiTV,REJECT
   - RULE-SET,BlockHttpDNS,REJECT
   - RULE-SET,MyReject,REJECT
-  - RULE-SET,iCloudPrivateRelay,🐶
-  - RULE-SET,MyDirect,DIRECT
+  #- RULE-SET,iCloudPrivateRelay,🐶
+  #- RULE-SET,MyDirect,DIRECT
   - GEOSITE,private,DIRECT
   - GEOSITE,CN,DIRECT
   - GEOIP,private,DIRECT,no-resolve
@@ -205,12 +205,5 @@ rule-providers:
     behavior: classical
     url: "https://raw.githubusercontent.com/Teacher-c/clash/main/MyReject.yaml"
     path: ./ruleset/MyReject.yaml
-    interval: 604800
-
-  MyDirect:
-    type: http
-    behavior: classical
-    url: "https://raw.githubusercontent.com/Teacher-c/clash/main/MyDirect.yaml"
-    path: ./ruleset/MyDirect.yaml
     interval: 604800
 
