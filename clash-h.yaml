@@ -91,7 +91,7 @@ proxy-providers:
   🐔:
     type: http
     path: ./proxy-providers/鸡.yaml 
-    url: ""
+    url: "http://a01.pokabu.tokyo/link/ZoRSfGveQwsafZOp?clash=2"
     filter: (4倍]TW)
     interval: 86400
     health-check:
@@ -169,12 +169,10 @@ rules:
   - RULE-SET,MyReject,REJECT
   - RULE-SET,iCloudPrivateRelay,🐶
   - RULE-SET,MyDirect,DIRECT
-  - RULE-SET,Apple,DIRECT
-  - RULE-SET,Microsoft,DIRECT
-  - RULE-SET,ChinaMax,DIRECT
-  - RULE-SET,LocalLan,DIRECT
-  - GEOIP,LAN,DIRECT
-  - GEOIP,CN,DIRECT
+  - GEOSITE,private,DIRECT
+  - GEOSITE,CN,DIRECT
+  - GEOIP,private,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT,no-resolve
   - MATCH,🐶
 
 
