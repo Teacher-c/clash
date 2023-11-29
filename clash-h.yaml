@@ -14,7 +14,7 @@ redir-port: 7892
 allow-lan: true
 
 #启用ipv6
-ipv6: false
+ipv6: true
 
 # 规则模式：Global（全局代理）/ Rule（规则） / Script(腳本) / Direct（全局直连）
 mode: Rule
@@ -39,7 +39,7 @@ tcp-concurrent: true
 # DNS 设置
 dns:
  enable: true
- ipv6: false
+ ipv6: true
  listen: 0.0.0.0:53
 
 # default-nameserver又叫Bootstrap DNS，用来解释nameserver
