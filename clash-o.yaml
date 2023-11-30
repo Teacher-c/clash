@@ -91,7 +91,7 @@ proxy-providers:
   🐔:
     type: http
     path: ./proxy-providers/鸡.yaml 
-    url: ""
+    url: "http://a01.pokabu.tokyo/link/ZoRSfGveQwsafZOp?clash=2"
     filter: (4倍]TW)
     interval: 86400
     health-check:
