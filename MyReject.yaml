@@ -20,3 +20,20 @@ payload:
   - DOMAIN,tools.google.com
 #屏蔽Xmind更新
   - DOMAIN,dl2.xmind.com
+#屏蔽群晖系统更新
+  - DOMAIN,update.synology.com
+  - DOMAIN,update7.synology.com
+  - DOMAIN,autoupdate7.synology.com
+  - DOMAIN,autoupdate7.synology.cn
+#屏蔽parallels更新
+  - DOMAIN,myparallels.com
+  - DOMAIN,parallels.cn
+  - DOMAIN,parallels.com
+  - DOMAIN,parallels.de
+  - DOMAIN,parallels.es
+  - DOMAIN,parallels.fr
+  - DOMAIN,parallels.nl
+  - DOMAIN,parallels.pt
+  - DOMAIN,parallels.ru
+  - DOMAIN,parallelskorea.com
+  - DOMAIN,parallels.com.cdn.cloudflare.net
