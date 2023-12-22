@@ -40,6 +40,7 @@ tcp-concurrent: true
 dns:
  enable: true
  ipv6: false
+ prefer-h3: true
  listen: 0.0.0.0:53
 
 # default-nameserver又叫Bootstrap DNS，用来解释nameserver
