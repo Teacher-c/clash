@@ -92,7 +92,7 @@ proxy-providers:
   🐔:
     type: http
     path: ./proxy-providers/鸡.yaml 
-    url: ""
+    url: "http://a01.pokabu.tokyo/link/ZoRSfGveQwsafZOp?clash=2"
     filter: (4倍]TW)
     interval: 86400
     health-check:
@@ -103,23 +103,21 @@ proxy-providers:
 
 # 策略组
 proxy-groups:
+  #- name: 🐶
+  #  type: load-balance
+  #  url: http://www.gstatic.com/generate_204
+  #  interval: 1800
+  #  strategy: consistent-hashing
+  #  use:
+  #    - 🐔
+
   - name: 🐶
-    type: load-balance
+    type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 1800
-    strategy: consistent-hashing
+    tolerance: 10
     use:
       - 🐔
-
-# url-test
-#  -
-#    name: PROXY
-#    type: url-test
-#    url: http://www.gstatic.com/generate_204
-#    interval: 1800
-#    tolerance: 10
-#    use:
-#      - 🐔
 
 #select 手动选择，该组在节点列表上，手动选择列表或者 proxy-group
 #url-test 延迟最低节点，测试该组所有节点的延迟
