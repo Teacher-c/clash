@@ -3,7 +3,11 @@ payload:
   - DOMAIN,cdnvitfile.venucia.com
   - DOMAIN-SUFFIX,vectormap0.bdimg.com
   - DOMAIN,errlog.umeng.com
-#绕过企业证书过期
+#避免迅雷版权问题
+  - DOMAIN,hub5idx.v6.shub.sandai.net
+  - DOMAIN,hub5emu.v6.shub.sandai.net
+  - DOMAIN,hub5btmain.v6.shub.sandai.net
+#绕过Apple企业证书过期
   - DOMAIN,ocsp.apple.com
 #屏蔽ios更新
   - DOMAIN,gdmf.apple.com
@@ -13,10 +17,6 @@ payload:
   - DOMAIN,swdist.apple.com
   - DOMAIN,xp.apple.com
   #- DOMAIN,swcdn.apple.com #optional, download url
-#避免迅雷版权问题
-  - DOMAIN,hub5idx.v6.shub.sandai.net
-  - DOMAIN,hub5emu.v6.shub.sandai.net
-  - DOMAIN,hub5btmain.v6.shub.sandai.net
 #屏蔽Google Chrome更新
   - DOMAIN,tools.google.com
 #屏蔽Xmind更新
