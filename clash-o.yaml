@@ -165,7 +165,7 @@ rules:
   - RULE-SET,AdvertisingMiTV,REJECT
   - RULE-SET,BlockHttpDNS,REJECT
   - RULE-SET,MyReject,REJECT
-  - DST-PORT,80,🐶
+  - DST-PORT,80,DIRECT
   - RULE-SET,OpenAI,🐶
   - RULE-SET,MyDirect,DIRECT
   - RULE-SET,Apple,DIRECT
