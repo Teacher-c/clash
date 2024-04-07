@@ -19,6 +19,7 @@ payload:
   #- DOMAIN,swcdn.apple.com #optional, download url
 #屏蔽Google Chrome更新
   - DOMAIN,tools.google.com
+  - DOMAIN,update.googleapis.com
 #屏蔽Xmind更新
   - DOMAIN,dl2.xmind.com
 #屏蔽群晖系统更新
