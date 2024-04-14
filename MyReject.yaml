@@ -28,15 +28,15 @@ payload:
   - DOMAIN,autoupdate7.synology.com
   - DOMAIN,autoupdate7.synology.cn
 #屏蔽parallels更新
-  - DOMAIN,myparallels.com
-  - DOMAIN,parallels.cn
-  - DOMAIN,parallels.com
-  - DOMAIN,parallels.de
-  - DOMAIN,parallels.es
-  - DOMAIN,parallels.fr
-  - DOMAIN,parallels.nl
-  - DOMAIN,parallels.pt
-  - DOMAIN,parallels.ru
-  - DOMAIN,parallelskorea.com
+  - DOMAIN-SUFFIX,myparallels.com
+  - DOMAIN-SUFFIX,parallels.cn
+  - DOMAIN-SUFFIX,parallels.com
+  - DOMAIN-SUFFIX,parallels.de
+  - DOMAIN-SUFFIX,parallels.es
+  - DOMAIN-SUFFIX,parallels.fr
+  - DOMAIN-SUFFIX,parallels.nl
+  - DOMAIN-SUFFIX,parallels.pt
+  - DOMAIN-SUFFIX,parallels.ru
+  - DOMAIN-SUFFIX,parallelskorea.com
   - DOMAIN,parallels.com.cdn.cloudflare.net
-  - DOMAIN,www.baidu.com
+  - DOMAIN-SUFFIX,baidu.com
