@@ -1,0 +1,34 @@
+name: get-apple_china-list
+
+# 定义触发器，定期执行此工作流
+on:
+  schedule:
+    - cron: '0 0 */7 * *'  # 每天午夜运行一次
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 检出代码仓库
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # 拉取远程文件
+    - name: Download conf file
+      run: |
+        curl -o Apple.conf https://raw.githubusercontent.com/mphin/proxy_tools/main/rules/Apple.list
+    # 使用 sed 命令修改文件
+    - name: Modify file
+      run: |
+        sed -i sed -i '/^\s*$/d; /^#/d; /^IP-CIDR/d; s/^DOMAIN\(-SUFFIX\)\?/server=\//g; s/$/\/223.5.5.5/' Apple.conf
+
+    # 提交修改并推送到仓库
+    - name: Commit and push changes
+      run: |
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git add Apple.conf
+        git commit -m "Update conf file"
+        git push
