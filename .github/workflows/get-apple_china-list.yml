@@ -26,7 +26,7 @@ jobs:
     # 使用 sed 命令修改文件
     - name: Modify file
       run: |
-        sed -i '/^\s*$/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/223.5.5.5/' Apple.conf
+        sed -i '/^\s*$/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' Apple.conf
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
