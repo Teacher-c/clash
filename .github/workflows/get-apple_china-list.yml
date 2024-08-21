@@ -6,6 +6,10 @@ on:
     - cron: '0 0 */7 * *'  # 每天午夜运行一次
   workflow_dispatch:  # 手动触发
 
+permissions:
+  contents: write  # 允许 GitHub Actions 推送代码
+  issues: write    # 允许 GitHub Actions 管理 issues
+
 jobs:
   update-file:
     runs-on: ubuntu-latest
