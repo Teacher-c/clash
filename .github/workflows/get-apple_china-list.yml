@@ -23,10 +23,12 @@ jobs:
     - name: Download conf file
       run: |
         curl -o Apple.conf https://raw.githubusercontent.com/mphin/proxy_tools/main/rules/Apple.list
+        curl -o Apple.txt https://raw.githubusercontent.com/mphin/proxy_tools/main/rules/Apple.list
     # 使用 sed 命令修改文件
     - name: Modify file
       run: |
         sed -i '/^\s*$/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' Apple.conf
+        sed -i '/^#/d; /^$/d; /^DOMAIN/d; s/IP-CIDR,//g; s/,no-resolve//g' Apple.txt
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
@@ -34,5 +36,6 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git add Apple.conf
+        git add Apple.txt
         git commit -m "Update conf file"
         git push
