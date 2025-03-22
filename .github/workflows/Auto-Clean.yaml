@@ -1,0 +1,28 @@
+name: Auto-Clean
+
+on:
+  #自动清理：每7天早上4点
+  #schedule:
+    - cron: 0 20 */7 * *
+  #手动清理
+  workflow_dispatch:
+    inputs:
+      Retain_NUMBER:
+        default: '0'
+        required: false
+        type: string
+
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+permissions: write-all
+
+jobs:
+  auto_clean:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Delete Old Workflows
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          retain_days: 0
+          keep_minimum_runs: 1
