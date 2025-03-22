@@ -44,5 +44,6 @@ jobs:
         git add apple_cdn.conf
         git add microsoft_cdn.conf
         git add cdn.conf
+        git add apple_no_cdn.conf
         git commit -m "Update file"
         git push
