@@ -28,9 +28,9 @@ jobs:
     # 使用 sed 命令修改文件
     - name: Modify file
       run: |
-        sed -i '/^\s*$/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' apple_cn.conf
-        sed -i '/^\s*$/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' apple_cdn.conf
-        sed -i '/^\s*$/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' microsoft_cdn.conf
+        sed -i '/^\s*$/d; /made_by_sukkaw/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' apple_cn.conf
+        sed -i '/^\s*$/d; /made_by_sukkaw/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' apple_cdn.conf
+        sed -i '/^\s*$/d; /made_by_sukkaw/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' microsoft_cdn.conf
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
