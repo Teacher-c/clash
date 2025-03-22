@@ -31,6 +31,7 @@ jobs:
         sed -i '/^\s*$/d; /made_by_sukkaw/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' apple_cn.conf
         sed -i '/^\s*$/d; /made_by_sukkaw/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' apple_cdn.conf
         sed -i '/^\s*$/d; /made_by_sukkaw/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' microsoft_cdn.conf
+        cat apple_cn.conf apple_cdn.conf microsoft_cdn.conf >> cdn.conf
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
@@ -40,5 +41,6 @@ jobs:
         git add apple_cn.conf
         git add apple_cdn.conf
         git add microsoft_cdn.conf
+        git add cdn.conf
         git commit -m "Update file"
         git push
