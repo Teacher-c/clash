@@ -26,6 +26,9 @@ jobs:
         curl -o apple_cn.conf https://ruleset.skk.moe/List/non_ip/apple_cn.conf
         curl -o apple_cdn.conf https://ruleset.skk.moe/List/non_ip/apple_cdn.conf
         curl -o microsoft_cdn.conf https://ruleset.skk.moe/List/non_ip/microsoft_cdn.conf
+        curl -o china_domains.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf
+        curl -o apple_china.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/apple.china.conf
+        curl -o my_direct.conf https://raw.githubusercontent.com/Teacher-c/clash/main/MyDirect.conf
     # 使用 sed 命令修改文件
     - name: Modify file
       run: |
@@ -33,7 +36,12 @@ jobs:
         sed -i '/^\s*$/d; /made_by_sukkaw/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' apple_cn.conf
         sed -i '/^\s*$/d; /made_by_sukkaw/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' apple_cdn.conf
         sed -i '/^\s*$/d; /made_by_sukkaw/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' microsoft_cdn.conf
+        sed -i '/^#/d' china_domains.conf
+        sed -i '/^#/d' apple_china.conf
+        sed -i '/^#/d' my_direct.conf
         cat apple_cn.conf apple_cdn.conf microsoft_cdn.conf >> cdn.conf
+        cat cdn.conf china_domains.conf apple_china.conf my_direct.conf >> all_direct.conf
+        sed -i 's/114.114.114.114/127.0.0.1#5335/g' all_direct.conf
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
@@ -45,5 +53,6 @@ jobs:
         git add microsoft_cdn.conf
         git add cdn.conf
         git add apple_no_cdn.conf
+        git add all_direct.conf
         git commit -m "Update file"
         git push
