@@ -22,6 +22,7 @@ jobs:
     # 拉取远程文件
     - name: Download conf file
       run: |
+        rm -rf *.conf
         curl -o apple_no_cdn.conf https://ruleset.skk.moe/List/non_ip/apple_services.conf
         curl -o apple_cn.conf https://ruleset.skk.moe/List/non_ip/apple_cn.conf
         curl -o apple_cdn.conf https://ruleset.skk.moe/List/non_ip/apple_cdn.conf
