@@ -42,6 +42,8 @@ jobs:
         cat apple_cn.conf apple_cdn.conf microsoft_cdn.conf >> cdn.conf
         cat cdn.conf china_domains.conf apple_china.conf my_direct.conf >> all_direct.conf
         sed -i 's/114.114.114.114/127.0.0.1#5335/g' all_direct.conf
+        awk '!seen[$0]++' all_direct.conf > tmp && mv tmp all_direct.conf
+
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
