@@ -46,9 +46,9 @@ jobs:
         cat china_domains.conf apple_china.conf apple_no_cdn.conf my_direct.conf >> all_direct.conf
         sed -i 's/114.114.114.114/127.0.0.1#5335/g' all_direct.conf
         awk '!seen[$0]++' all_direct.conf > tmp && mv tmp all_direct.conf
-        awk -F, '/^IP-CIDR/ {print $2}' apple.txt > tmp1 && mv tmp1 apple_cidr.txt
-        cat apple_cidr.txt > CN-ip-cidr.txt
-        awk '!seen[$0]++' CN-ip-cidr.txt > tmp2 && mv tmp2 CN-ip-cidr.txt
+        awk -F, '/^IP-CIDR/ {print $2}' apple.txt >> tmp1 && mv tmp1 apple_cidr.txt
+        cat apple_cidr.txt >> CN-ip-cidr.txt
+        awk '!seen[$0]++' CN-ip-cidr.txt >> tmp2 && mv tmp2 CN-ip-cidr.txt
 
 
 
