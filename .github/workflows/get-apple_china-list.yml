@@ -29,6 +29,9 @@ jobs:
         curl -o china_domains.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf
         curl -o apple_china.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/apple.china.conf
         curl -o my_direct.conf https://raw.githubusercontent.com/Teacher-c/clash/main/MyDirect.conf
+        curl -o CN-ip-cidr.txt https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/CN-ip-cidr.txt
+        curl -o apple.txt https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Apple.list
+        
     # 使用 sed 命令修改文件
     - name: Modify file
       run: |
@@ -43,7 +46,10 @@ jobs:
         cat china_domains.conf apple_china.conf apple_no_cdn.conf my_direct.conf >> all_direct.conf
         sed -i 's/114.114.114.114/127.0.0.1#5335/g' all_direct.conf
         awk '!seen[$0]++' all_direct.conf > tmp && mv tmp all_direct.conf
-        #sed -i 's/^server=\/\([^/]*\)\/127\.0\.0\.1#5335$/\1/' all_direct.conf
+        awk -F, '/^IP-CIDR/ {print $2}' apple.txt > tmp1 && mv tmp1 apple_cidr.txt
+        cat apple_cidr.txt > CN-ip-cidr.txt
+        awk '!seen[$0]++' CN-ip-cidr.txt > tmp2 && mv tmp2 CN-ip-cidr.txt
+
 
 
 
@@ -58,5 +64,7 @@ jobs:
         git add cdn.conf
         git add apple_no_cdn.conf
         git add all_direct.conf
+        git add CN-ip-cidr.txt
+        git add apple_cidr.txt
         git commit -m "Update file"
         git push
