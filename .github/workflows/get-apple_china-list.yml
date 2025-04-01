@@ -40,7 +40,7 @@ jobs:
         sed -i '/^#/d' apple_china.conf
         sed -i '/^#/d' my_direct.conf
         cat apple_cn.conf apple_cdn.conf microsoft_cdn.conf >> cdn.conf
-        cat china_domains.conf apple_china.conf my_direct.conf >> all_direct.conf
+        cat china_domains.conf apple_china.conf apple_no_cdn.conf my_direct.conf >> all_direct.conf
         sed -i 's/114.114.114.114/127.0.0.1#5335/g' all_direct.conf
         awk '!seen[$0]++' all_direct.conf > tmp && mv tmp all_direct.conf
         #sed -i 's/^server=\/\([^/]*\)\/127\.0\.0\.1#5335$/\1/' all_direct.conf
