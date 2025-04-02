@@ -64,7 +64,6 @@ jobs:
         git add apple_cn.conf
         git add apple_cdn.conf
         git add microsoft_cdn.conf
-        git add cdn.conf
         git add apple_no_cdn.conf
         git add apple_domains.conf
         git add all_direct.conf
