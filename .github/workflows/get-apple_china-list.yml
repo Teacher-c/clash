@@ -48,7 +48,7 @@ jobs:
         awk '!seen[$0]++' CN-ip-cidr.txt >> tmp2 && mv tmp2 CN-ip-cidr.txt
         #提取域名
         awk -F, '/^(HOST|HOST-SUFFIX|HOST-KEYWORD),/ {print $2}' apple.txt >> tmp3 && mv tmp3 apple_domains.conf
-        sed -i 's|^|server=/|; s|$|/114.114.114.114|' apple_domains.conf
+        awk '!/^server=\// {print "server=/" $0 "/114.114.114.114"} /^server=\// {print $0}' apple_domains.conf > tmp && mv tmp apple_domains.conf
         cat china_domains.conf apple_domains.conf apple_china.conf my_direct.conf >> all_direct.conf
         sed -i 's/114.114.114.114/127.0.0.1#5335/g' all_direct.conf
         awk '!seen[$0]++' all_direct.conf > tmp && mv tmp all_direct.conf
