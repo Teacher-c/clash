@@ -49,7 +49,7 @@ jobs:
         awk '!seen[$0]++' all_direct.conf > tmp && mv tmp all_direct.conf
         rm -rf china_domains.conf apple_china.conf my_direct.conf ip-cidr.txt apple.txt
         #apple_simple.conf
-        sed -i '/^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/223.5.5.5/' apple_simple.conf
+        sed -i '/^\s*$/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/223.5.5.5/' apple_simple.conf
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
