@@ -27,25 +27,29 @@ jobs:
         curl -o my_direct.conf https://raw.githubusercontent.com/Teacher-c/clash/main/MyDirect.conf
         curl -o ip-cidr.txt https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/CN-ip-cidr.txt
         curl -o apple.txt https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/QuantumultX/Apple/Apple.list
-        curl -o apple_simple.conf https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Apple.list
+        curl -o apple_simple.conf https://raw.githubusercontent.com/mphin/proxy_tools/refs/heads/main/rules/Apple.list
         
     # 使用 sed 命令修改文件
     - name: Modify file
       run: |
         sed -i '/^#/d' *.conf *.txt
         #提取ip
+        rm -rf apple_cidr.txt
         awk -F, '/^IP-CIDR/ {print $2}' apple.txt >> tmp1 && mv tmp1 apple_cidr.txt
+        rm -rf CN-ip-cidr.txt
         cat apple_cidr.txt ip-cidr.txt >> CN-ip-cidr.txt
         awk '!seen[$0]++' CN-ip-cidr.txt >> tmp2 && mv tmp2 CN-ip-cidr.txt
         #提取域名
+        rm -rf apple_domains.conf
         awk -F, '/^(HOST|HOST-SUFFIX|HOST-KEYWORD),/ {print $2}' apple.txt >> tmp3 && mv tmp3 apple_domains.conf
-        awk '!/^server=\// {print "server=/" $0 "/114.114.114.114"} /^server=\// {print $0}' apple_domains.conf > tmp && mv tmp apple_domains.conf
+        awk '!/^server=\// {print "server=/" $0 "/223.5.5.5"} /^server=\// {print $0}' apple_domains.conf > tmp && mv tmp apple_domains.conf
+        rm -rf all_direct.conf
         cat china_domains.conf apple_china.conf apple_domains.conf my_direct.conf >> all_direct.conf
-        sed -i 's/114.114.114.114/127.0.0.1#5335/g' all_direct.conf
+        sed -i 's/114.114.114.114/223.5.5.5/g' all_direct.conf
         awk '!seen[$0]++' all_direct.conf > tmp && mv tmp all_direct.conf
         rm -rf china_domains.conf apple_china.conf my_direct.conf ip-cidr.txt apple.txt
         #apple_simple.conf
-        sed -i '/^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/114.114.114.114/' apple_simple.conf
+        sed -i '/^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/223.5.5.5/' apple_simple.conf
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
