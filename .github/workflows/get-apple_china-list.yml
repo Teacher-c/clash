@@ -22,37 +22,23 @@ jobs:
     # 拉取远程文件
     - name: Download conf file
       run: |
-        curl -o china_domains.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf
-        curl -o apple_china.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/apple.china.conf
-        curl -o my_direct.conf https://raw.githubusercontent.com/Teacher-c/clash/main/MyDirect.conf
         curl -o ip-cidr.txt https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/CN-ip-cidr.txt
-        curl -o apple.txt https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/QuantumultX/Apple/Apple.list
-        curl -o apple_simple.conf https://raw.githubusercontent.com/mphin/proxy_tools/refs/heads/main/rules/Apple.list
+        curl -o apple_cidr4.collection https://raw.githubusercontent.com/Teacher-c/clash/refs/heads/main/apple_cidr4_collection.txt
         curl -o china_ip6_route.txt https://ispip.clang.cn/all_cn_ipv6.txt
-        curl -o apple_cidr6.txt https://raw.githubusercontent.com/Teacher-c/clash/refs/heads/main/apple_cidr6_collection.txt
+        curl -o apple_cidr6.collection https://raw.githubusercontent.com/Teacher-c/clash/refs/heads/main/apple_cidr6_collection.txt
+        curl -o apple_simple.conf https://raw.githubusercontent.com/mphin/proxy_tools/refs/heads/main/rules/Apple.list
         
     # 使用 sed 命令修改文件
     - name: Modify file
       run: |
-        sed -i '/^\s*$/d; /^#/d' *.conf *.txt
+        sed -i '/^\s*$/d; /^#/d' *.conf *.txt *.collection
         #提取ip
-        rm -rf apple_cidr4.txt
-        awk -F, '/^IP-CIDR/ {print $2}' apple.txt >> tmp1 && mv tmp1 apple_cidr4.txt
         rm -rf CN-ip-cidr.txt
-        cat apple_cidr4.txt ip-cidr.txt >> CN-ip-cidr.txt
-        awk '!seen[$0]++' CN-ip-cidr.txt >> tmp2 && mv tmp2 CN-ip-cidr.txt
-        rm -rf CN-ip-cidr6.txt
-        cat apple_cidr6.txt china_ip6_route.txt >> tmp && mv tmp CN-ip-cidr6.txt
+        cat apple_cidr4.collection ip-cidr.txt >> CN-ip-cidr.txt
         
-        #提取域名
-        rm -rf apple_domains.conf
-        awk -F, '/^(HOST|HOST-SUFFIX|HOST-KEYWORD),/ {print $2}' apple.txt >> tmp3 && mv tmp3 apple_domains.conf
-        awk '!/^server=\// {print "server=/" $0 "/223.5.5.5"} /^server=\// {print $0}' apple_domains.conf > tmp && mv tmp apple_domains.conf
-        rm -rf all_direct.conf
-        cat china_domains.conf apple_china.conf apple_domains.conf my_direct.conf >> all_direct.conf
-        sed -i 's/114.114.114.114/223.5.5.5/g' all_direct.conf
-        awk '!seen[$0]++' all_direct.conf > tmp && mv tmp all_direct.conf
-        rm -rf china_domains.conf apple_china.conf my_direct.conf ip-cidr.txt apple.txt
+        rm -rf CN-ip-cidr6.txt
+        cat apple_cidr6.collection china_ip6_route.txt >> CN-ip-cidr6.txt
+        
         #apple_simple.conf
         sed -i '/^\s*$/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/223.5.5.5/' apple_simple.conf
 
