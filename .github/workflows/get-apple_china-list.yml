@@ -30,7 +30,7 @@ jobs:
     # 使用 sed 命令修改文件
     - name: Modify file
       run: |
-        sed -i '/^\s*$/d; /^#/d' *.conf *.txt *.collection
+        sed -i '/^\s*$/d; /^#/d' ip-cidr.txt china_ip6_route.txt *.collection
         #提取ip
         rm -rf CN-ip-cidr.txt
         cat apple_cidr4.collection ip-cidr.txt >> CN-ip-cidr.txt
