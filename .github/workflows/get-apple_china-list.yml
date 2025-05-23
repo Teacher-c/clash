@@ -29,7 +29,7 @@ jobs:
         curl -o apple.txt https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/QuantumultX/Apple/Apple.list
         curl -o apple_simple.conf https://raw.githubusercontent.com/mphin/proxy_tools/refs/heads/main/rules/Apple.list
         curl -o china_ip6_route.txt https://ispip.clang.cn/all_cn_ipv6.txt
-        curl -o apple_cidr6.txt https://raw.githubusercontent.com/Teacher-c/clash/main/apple_cidr6.txt
+        curl -o apple_cidr6.txt https://raw.githubusercontent.com/Teacher-c/clash/refs/heads/main/apple_cidr6_collection.txt
         
     # 使用 sed 命令修改文件
     - name: Modify file
