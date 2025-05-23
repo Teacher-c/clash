@@ -1,14 +1,7 @@
-#Apple 亚太区 IPv6 网络大段
 2403:300::/32
-#Apple 美国/全球大段地址段
 2603:4000::/26
-#Apple 官方分配 IPv6 网段
 2620:149::/32
-#Apple 欧洲区网络（Apple CDN）
 2a01:b740::/32
-#Akamai CDN（部分 Apple 服务）
 2a03:2880::/32
-#Fastly CDN（Apple 内容分发一部分）
 2a04:4e40::/29
-#EdgeCast CDN（Apple 曾使用）
 2a00:1c00::/29
