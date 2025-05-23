@@ -28,17 +28,22 @@ jobs:
         curl -o ip-cidr.txt https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/CN-ip-cidr.txt
         curl -o apple.txt https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/QuantumultX/Apple/Apple.list
         curl -o apple_simple.conf https://raw.githubusercontent.com/mphin/proxy_tools/refs/heads/main/rules/Apple.list
+        curl -o china_ip6_route.txt https://ispip.clang.cn/all_cn_ipv6.txt
+        curl -o apple_cidr6.txt https://raw.githubusercontent.com/Teacher-c/clash/main/apple_cidr6.txt
         
     # 使用 sed 命令修改文件
     - name: Modify file
       run: |
-        sed -i '/^#/d' *.conf *.txt
+        sed -i '/^\s*$/d; /^#/d' *.conf *.txt
         #提取ip
-        rm -rf apple_cidr.txt
-        awk -F, '/^IP-CIDR/ {print $2}' apple.txt >> tmp1 && mv tmp1 apple_cidr.txt
+        rm -rf apple_cidr4.txt
+        awk -F, '/^IP-CIDR/ {print $2}' apple.txt >> tmp1 && mv tmp1 apple_cidr4.txt
         rm -rf CN-ip-cidr.txt
-        cat apple_cidr.txt ip-cidr.txt >> CN-ip-cidr.txt
+        cat apple_cidr4.txt ip-cidr.txt >> CN-ip-cidr.txt
         awk '!seen[$0]++' CN-ip-cidr.txt >> tmp2 && mv tmp2 CN-ip-cidr.txt
+        rm -rf CN-ip-cidr6.txt
+        cat apple_cidr6.txt china_ip6_route.txt >> tmp && mv tmp CN-ip-cidr6.txt
+        
         #提取域名
         rm -rf apple_domains.conf
         awk -F, '/^(HOST|HOST-SUFFIX|HOST-KEYWORD),/ {print $2}' apple.txt >> tmp3 && mv tmp3 apple_domains.conf
