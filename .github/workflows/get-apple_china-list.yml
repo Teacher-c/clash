@@ -26,7 +26,6 @@ jobs:
         curl -o apple_cidr4.collection https://raw.githubusercontent.com/Teacher-c/clash/refs/heads/main/apple_cidr4_collection.txt
         curl -o china_ip6_route.txt https://ispip.clang.cn/all_cn_ipv6.txt
         curl -o apple_cidr6.collection https://raw.githubusercontent.com/Teacher-c/clash/refs/heads/main/apple_cidr6_collection.txt
-        curl -o apple_domain_simple.conf https://raw.githubusercontent.com/mphin/proxy_tools/refs/heads/main/rules/Apple.list
         
     # 使用 sed 命令修改文件
     - name: Modify file
@@ -39,14 +38,12 @@ jobs:
         rm -rf CN-ip-cidr6.txt
         cat apple_cidr6.collection china_ip6_route.txt >> CN-ip-cidr6.txt
         
-        #apple_domain_simple.conf
-        sed -i '/^\s*$/d; /^[#]/d; /^IP-CIDR/d; s/DOMAIN,/server=\//g; s/DOMAIN-SUFFIX,/server=\//g; s/$/\/223.5.5.5/' apple_domain_simple.conf
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
       run: |
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git add CN-ip-cidr.txt CN-ip-cidr6.txt apple_domain_simple.conf
+        git add CN-ip-cidr.txt CN-ip-cidr6.txt 
         git commit -m "Update file"
         git push
