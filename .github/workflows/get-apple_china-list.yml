@@ -42,9 +42,10 @@ jobs:
 
         rm -rf ip-cidr.txt apple_cidr4.collection china_ip6_route.txt apple_cidr6.collection
         
-        rm -rf my_direct.yaml
-        mv whitelist.txt my_direct.yaml
-        sed -i '/^#/d; s/^/DOMAIN-SUFFIX,/' my_direct.yaml
+        sed -i '/^#/d; s/^/- DOMAIN-SUFFIX,/' whitelist.txt
+        { echo "payload:"; cat whitelist.txt; } > tmp && mv tmp my_direct.yaml
+        rm -rf whitelist.txt
+
         
 
     # 提交修改并推送到仓库
