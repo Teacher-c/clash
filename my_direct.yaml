@@ -1,5 +1,6 @@
-DOMAIN-SUFFIX,x.luxury
-DOMAIN-SUFFIX,y.luxury
-DOMAIN-SUFFIX,xiaomanxiong.net
-DOMAIN-SUFFIX,dongnan.guolianrobot.com
-DOMAIN-SUFFIX,bill.youqian.pro
+payload:
+- DOMAIN-SUFFIX,x.luxury
+- DOMAIN-SUFFIX,y.luxury
+- DOMAIN-SUFFIX,xiaomanxiong.net
+- DOMAIN-SUFFIX,dongnan.guolianrobot.com
+- DOMAIN-SUFFIX,bill.youqian.pro
