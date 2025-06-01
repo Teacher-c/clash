@@ -27,8 +27,6 @@ jobs:
         curl -o china_ip6_route.txt https://ispip.clang.cn/all_cn_ipv6.txt
         curl -o apple_cidr6.collection https://raw.githubusercontent.com/Teacher-c/clash/refs/heads/main/apple_cidr6_collection.txt
         
-        curl -o whitelist.txt https://raw.githubusercontent.com/Teacher-c/MosDNS_AD/refs/heads/main/whitelist.txt
-        
     # 使用 sed 命令修改文件
     - name: Modify file
       run: |
@@ -40,13 +38,7 @@ jobs:
         rm -rf CN-ip-cidr6.txt
         cat apple_cidr6.collection china_ip6_route.txt >> CN-ip-cidr6.txt
 
-        rm -rf ip-cidr.txt apple_cidr4.collection china_ip6_route.txt apple_cidr6.collection
-        
-        sed -i '/^#/d; s/^/  - DOMAIN-SUFFIX,/' whitelist.txt
-        { echo "payload:"; cat whitelist.txt; } > tmp && mv tmp my_direct.yaml
-        rm -rf whitelist.txt
-
-        
+        rm -rf ip-cidr.txt apple_cidr4.collection china_ip6_route.txt apple_cidr6.collection   
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
