@@ -23,22 +23,20 @@ jobs:
     - name: Download conf file
       run: |
         curl -o ip-cidr.txt https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/CN-ip-cidr.txt
-        curl -o apple_cidr4.collection https://raw.githubusercontent.com/Teacher-c/clash/refs/heads/main/apple_cidr4_collection.txt
         curl -o china_ip6_route.txt https://ispip.clang.cn/all_cn_ipv6.txt
-        curl -o apple_cidr6.collection https://raw.githubusercontent.com/Teacher-c/clash/refs/heads/main/apple_cidr6_collection.txt
         
     # 使用 sed 命令修改文件
     - name: Modify file
       run: |
-        sed -i '/^\s*$/d; /^#/d' ip-cidr.txt china_ip6_route.txt *.collection
+        sed -i '/^\s*$/d; /^#/d' ip-cidr.txt china_ip6_route.txt
         #提取ip
         rm -rf CN-ip-cidr.txt
-        cat apple_cidr4.collection ip-cidr.txt >> CN-ip-cidr.txt
+        cat ./data/*ipv4.txt ip-cidr.txt >> CN-ip-cidr.txt
         
         rm -rf CN-ip-cidr6.txt
-        cat apple_cidr6.collection china_ip6_route.txt >> CN-ip-cidr6.txt
+        cat ./data/*ipv6.txt china_ip6_route.txt >> CN-ip-cidr6.txt
 
-        rm -rf ip-cidr.txt apple_cidr4.collection china_ip6_route.txt apple_cidr6.collection   
+        rm -rf ip-cidr.txt china_ip6_route.txt
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
