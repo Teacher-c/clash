@@ -1,4 +1,4 @@
-name: merge-apple&china-ip
+name: Merge Apple & China-IPs
 
 # 定义触发器，定期执行此工作流
 on:
