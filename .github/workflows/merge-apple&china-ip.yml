@@ -1,4 +1,4 @@
-name: get-apple_china-list
+name: merge-apple&china-ip
 
 # 定义触发器，定期执行此工作流
 on:
@@ -21,23 +21,27 @@ jobs:
       uses: actions/checkout@v3
 
     # 拉取远程文件
-    - name: Download conf file
+    - name: Download conf files
       run: |
-        curl -o ip-cidr.txt https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/CN-ip-cidr.txt
-        curl -o china_ip6_route.txt https://ispip.clang.cn/all_cn_ipv6.txt
-        
-    # 使用 sed 命令修改文件
-    - name: Modify file
-      run: |
-        sed -i '/^\s*$/d; /^#/d' ip-cidr.txt china_ip6_route.txt
-        #提取ip
-        rm -rf CN-ip-cidr.txt
-        cat ./data/*ipv4.txt ip-cidr.txt >> CN-ip-cidr.txt
-        
-        rm -rf CN-ip-cidr6.txt
-        cat ./data/*ipv6.txt china_ip6_route.txt >> CN-ip-cidr6.txt
+        curl -s -o ip-cidr.txt https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/CN-ip-cidr.txt
+        curl -s -o china_ip6_route.txt https://ispip.clang.cn/all_cn_ipv6.txt
 
-        rm -rf ip-cidr.txt china_ip6_route.txt
+    # 使用 sed 命令清洗并合并文件
+    - name: Modify and merge IP lists
+      run: |
+        # 清除空行与注释
+        sed -i '/^\s*$/d; /^#/d' ip-cidr.txt
+        sed -i '/^\s*$/d; /^#/d' china_ip6_route.txt
+
+        # 合并 IPv4 列表
+        cat ./data/*ipv4.txt ip-cidr.txt > CN-ip-cidr.txt
+
+        # 合并 IPv6 列表
+        cat ./data/*ipv6.txt china_ip6_route.txt > CN-ip-cidr6.txt
+
+        # 清理中间文件
+        rm -f ip-cidr.txt china_ip6_route.txt
+
 
     # 提交修改并推送到仓库
     - name: Commit and push changes
